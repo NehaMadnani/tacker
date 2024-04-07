@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "company": "Google",
+    "sys_queried_on": "2023-05-15",
+    "toc_last_updated_on": "2022-01-05",
+    "Analysis": {
+        "properties": {
+            "Data Collection": {
+                "text": "Bad. The terms do not state that only minimal data needed to operate the services is collected. Google collects a broad range of data to provide, maintain, and improve services, as well as for advertising purposes.",
+                "score": false
+            },
+            "Data Retention": {
+                "text": "Bad. The terms do not state that no data is retained unless the user provides explicit permission. Google retains user data and content unless the user deletes it or removes Google's access.",
+                "score": false
+            },
+            "IP and Data Ownership": {
+                "text": "Good. The terms state that the user retains ownership of their content and intellectual property rights. Google only gets non-exclusive rights to use the content to provide and improve services.",
+                "score": true
+            },
+            "Data Privacy & Sharing": {
+                "text": "Bad. Google shares user data with third parties and affiliates, and uses data for advertising and other purposes beyond just providing the services to users. The privacy policy allows broad data usage and sharing.",
+                "score": false
+            },
+            "Liability and Indemnification": {
+                "text": "Good. The terms include a limitation of liability for Google, and requires business users to indemnify Google against claims related to their use of the services.",
+                "score": true
+            }
+        }
+    }
+}
