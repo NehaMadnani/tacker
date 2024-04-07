@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms Validator</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .search-container {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .search-container input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px 0 0 5px;
+      width: 500px;
+    }
+
+    .search-container button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+    }
+
+    .terms-container {
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+    }
+
+    .terms-container h2 {
+      margin-top: 0;
+    }
+
+    .terms-container p {
+      margin-bottom: 10px;
+    }
+
+    .analysis-item {
+      margin-bottom: 15px;
+    }
+
+    .analysis-item span {
+      font-weight: bold;
+    }
+    #termsContainer {
+      display: none;
+    }
+    .companyName {
+      font-size: 14px;
+      font: medium;
+    }
+    .company_name{
+      color: purple;
+      font-size: 30px;
+
+    }
+    .last_queried {
+      color: grey;
+      font-size: small;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="search-container">
+      <input type="text" placeholder="Enter URL" id="inputUrl">
+      <button id="validateButton">Validate</button>
+    </div>
+
+    <div class="terms-container" id="termsContainer">
+
+      <div class="companyName"> Company </div>
+      <div id="companyValue"> </div>
+
+
+      <!-- The terms-container will be populated dynamically -->
+    </div>
+  </div>
+
+  <script type="module">
+    import mockAPIResponse from './mock_api_response.js';
+
+    document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('validateButton').addEventListener('click', validateTerms);
+  document.getElementById('companyValue').addEventListener('click', displayTermsResponse);
+  validateTerms(); // Call validateTerms to display the initial response
+});
+
+function validateTerms() {
+  // Simulating an API call
+  displayTermsResponse(mockAPIResponse);
+  document.getElementById('termsContainer').style.display = 'block';
+}
+
+  function displayTermsResponse(response) {
+      const termsContainer = document.getElementById('termsContainer');
+      termsContainer.innerHTML = '';
+
+
+      const companyElement = document.createElement('p');
+      if (companyElement) {
+        companyElement.innerHTML = response.company;
+      } else {
+        console.error('Could not find element with ID "companyValue"');
+      }
+      companyElement.classList.add('company_name');
+      termsContainer.appendChild(companyElement);
+
+
+      const queriedOnElement = document.createElement('p');
+      queriedOnElement.textContent = `Last queried on: ${response.sys_queried_on}`;
+      queriedOnElement.classList.add('last_queried');
+      termsContainer.appendChild(queriedOnElement);
+
+      const analysisElement = document.createElement('div');
+      analysisElement.innerHTML = '<h3>Analysis</h3>';
+      analysisElement.classList.add('analysis');
+      termsContainer.appendChild(analysisElement);
+
+      for (const property in response.Analysis.properties) {
+        const propertyElement = document.createElement('div');
+        propertyElement.classList.add('analysis-item');
+
+        const propertyNameElement = document.createElement('span');
+        propertyNameElement.textContent = property + ': ';
+        propertyElement.appendChild(propertyNameElement);
+
+        const propertyTextElement = document.createElement('span');
+        propertyTextElement.textContent = response.Analysis.properties[property].text;
+        propertyElement.appendChild(propertyTextElement);
+
+        const propertyScoreElement = document.createElement('span');
+        propertyScoreElement.textContent = ` (${response.Analysis.properties[property].score})`;
+        propertyElement.appendChild(propertyScoreElement);
+
+        analysisElement.appendChild(propertyElement);
+      }
+    }
+  </script>
+</body>
+</html>
