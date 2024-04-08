@@ -84,6 +84,8 @@
       border-radius: 3px;
       border: 1px solid green;
       color: #0f5132 !important;
+      line-height: 1.8;
+
     }
     .property-score-false {
       background-color: #f8d7da;
@@ -91,6 +93,7 @@
       border-radius: 3px;
       border: 1px solid #842029;
       color: #842029 !important;
+      line-height: 1.8;
     }
     .property-name {
       color: #333;
@@ -134,50 +137,92 @@
       width: 30px;
 
     }
+
+    .product-icon {
+      margin: 40px;
+    }
+
   </style>
 
 </head>
-<body>
+html
 
+
+Copy code
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terms Validator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    /* Styles remain the same as before */
+  </style>
+</head>
+<body>
   <header>
     <h1 class="header-title">Tacker - Terms & Conditions Simplified</h1>
     <p class="header-subtitle">Streamline your terms and conditions with ease</p>
   </header>
   <div class="container">
-    <div class="header-subtitle">Do you read terms and conditions? No. And thats intentional. Lets fix that. </div>
+    <div class="header-subtitle">Do you read terms and conditions? No. And thats intentional. Lets fix that.</div>
     <div class="search-container">
-
-
       <input type="text" placeholder="Enter URL" id="inputUrl">
       <button id="validateButton">Validate</button>
     </div>
 
     <div class="terms-container" id="termsContainer">
-
       <div class="companyName"> Company </div>
       <div id="companyValue"> </div>
-
-
-      <!-- The terms-container will be populated dynamically -->
     </div>
+
+
+    <div class="pre-filled" style="margin-top: 40px;">
+      <span class="product-icon">
+        X <button id="validateButtonforX" onclick="validateTermsForOrgs(xAPIResponse)">Validate</button>
+      </span>
+      <span class="product-icon">
+        Google <button id="validateButtonforGoogle" onclick="validateTermsForOrgs(googleAPIResponse)">Validate</button>
+      </span>
+      <span class="product-icon">
+        Bluesky <button id="validateButtonforBlueSky" onclick="validateTermsForOrgs(blueSkyAPIResponse)">Validate</button>
+      </span>
+  </div>
   </div>
 
   <script type="module">
     import mockAPIResponse from './mock_api_response.js';
-
+    import xAPIResponse from './mock_x_response.js';
+    import googleAPIResponse from './mock_google_response.js';
+    import blueSkyAPIResponse from './mock_bluesky.js';
 
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('validateButton').addEventListener('click', validateTerms);
+      document.getElementById('validateButtonforX').addEventListener('click', () => validateTermsForOrgs(xAPIResponse));
+      document.getElementById('validateButtonforGoogle').addEventListener('click', () => validateTermsForOrgs(googleAPIResponse));
+      document.getElementById('validateButtonforBlueSky').addEventListener('click', () => validateTermsForOrgs(blueSkyAPIResponse));
+
       document.getElementById('companyValue').addEventListener('click', displayTermsResponse);
       validateTerms(); // Call validateTerms to display the initial response
     });
 
     function dasherize(str) {
-    return str.toLowerCase().replace(/\s+/g, '-');
-  }
+      return str.toLowerCase().replace(/\s+/g, '-');
+    }
+
     function validateTerms() {
-      // Simulating an API call
       displayTermsResponse(mockAPIResponse);
+      document.getElementById('termsContainer').style.display = 'block';
+    }
+
+    function validateTermsForOrgs(chosenResponse) {
+      document.getElementById('termsContainer').innerHTML = '';
+      displayTermsResponse(chosenResponse);
       document.getElementById('termsContainer').style.display = 'block';
     }
 
@@ -186,11 +231,7 @@
       termsContainer.innerHTML = '';
 
       const companyElement = document.createElement('p');
-      if (companyElement) {
-        companyElement.innerHTML = response.company;
-      } else {
-        console.error('Could not find element with ID "companyValue"');
-      }
+      companyElement.innerHTML = response.company;
       companyElement.classList.add('company_name');
       termsContainer.appendChild(companyElement);
 
@@ -205,41 +246,24 @@
       termsContainer.appendChild(analysisElement);
 
       for (const property in response.Analysis.properties) {
-        let colorScheme;
-        if (response.Analysis.properties[property].score == 'true') {
-          colorScheme = "green";
-        } else {
-          colorScheme = "red";
-        }
-
         const propertyElement = document.createElement('div');
         propertyElement.classList.add('analysis-item');
 
-        // if (colorScheme === 'red') {
-        //   propertyElement.classList.add('property-score-false');
-        // } else {
-        //   propertyElement.classList.add('property-score-true');
-        // }
-
         const propertyNameElement = document.createElement('span');
         propertyNameElement.textContent = property + ': ';
-        var className = dasherize(response.Analysis.properties[property].text);
+        const className = dasherize(response.Analysis.properties[property].text);
         propertyNameElement.classList.add('property-name', className);
         propertyElement.appendChild(propertyNameElement);
 
         const propertyTextElement = document.createElement('span');
         propertyTextElement.textContent = response.Analysis.properties[property].text;
         propertyTextElement.classList.add('property-description');
-        propertyElement.appendChild(propertyTextElement);
-
-        const propertyScoreElement = document.createElement('span');
         if (response.Analysis.properties[property].score) {
-          // propertyElement.classList.add('icon-good');
           propertyTextElement.classList.add('property-score-true');
         } else {
           propertyTextElement.classList.add('property-score-false');
         }
-        propertyElement.appendChild(propertyScoreElement);
+        propertyElement.appendChild(propertyTextElement);
 
         analysisElement.appendChild(propertyElement);
       }
