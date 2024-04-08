@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "company": "OpenAI",
+    "sys_queried_on": "June 5, 2023",
+    "toc_last_updated_on": "January 31, 2024",
+    "Analysis": {
+        "properties": {
+            "Data Collection": {
+                "text": "The terms do not explicitly state that only minimal data needed to operate the platform is collected. The terms allow for collection of account information, user content, communication information, social media information, and technical usage data.",
+                "score": false
+            },
+            "Data Retention": {
+                "text": "The terms do not state that no data is retained unless the user provides explicit permission. Data is retained to provide the services, with some data like API data retained for 30 days by default.",
+                "score": false
+            },
+            "IP and Data Ownership": {
+                "text": "The terms state that as between the user and OpenAI, the user retains ownership rights in the input and owns the output. OpenAI assigns its rights in the output to the user.",
+                "score": true
+            },
+            "Data Privacy & Sharing": {
+                "text": "The terms allow OpenAI to use content to provide, maintain, develop and improve services, comply with law, enforce policies and keep services safe. Data may be shared with affiliates, vendors, service providers, and other third parties for legal reasons. Users can opt out of data being used to train models.",
+                "score": false
+            },
+            "Liability and Indemnification": {
+                "text": "The terms contain a limitation of liability clause that caps OpenAI's aggregate liability and disclaims certain types of damages. The terms also have an indemnification clause requiring business/organization users to indemnify OpenAI.",
+                "score": true
+            }
+        }
+    }
+}

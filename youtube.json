@@ -1,0 +1,30 @@
+{
+    "id": 1,
+    "company": "YouTube",
+    "sys_queried_on": "2023-05-25",
+    "toc_last_updated_on": "2023-05-25",
+    "Analysis": {
+        "properties": {
+            "Data Collection": {
+                "text": "The T&C does not explicitly state that only minimal data needed to operate the platform is collected. It references a separate Privacy Policy that governs how personal data is treated.",
+                "score": false
+            },
+            "Data Retention": {
+                "text": "The T&C states that YouTube may retain server copies of videos that have been removed or deleted. It does not specify that no data is retained unless the user provides explicit permission/consent/request.",
+                "score": false
+            },
+            "IP and Data Ownership": {
+                "text": "The user retains ownership rights in their Content. However, by submitting Content, the user grants YouTube a worldwide, non-exclusive, royalty-free, sublicensable and transferable license to use that Content. The user also grants other users certain rights to use the Content. So while the user owns their data, they are providing broad usage rights to YouTube and other users.",
+                "score": false
+            },
+            "Data Privacy & Sharing": {
+                "text": "The T&C references a separate Privacy Policy regarding treatment of personal data. It grants YouTube broad rights to use user Content in connection with operating and promoting the service. Data usage and sharing is not strictly limited to only what is needed to provide the service to the user.",
+                "score": false
+            },
+            "Liability and Indemnification": {
+                "text": "The T&C contains sections on 'Limitation of Liability' and 'Indemnity' that limit YouTube's liability and require the user to indemnify YouTube against claims arising from the user's use of the service.",
+                "score": true
+            }
+        }
+    }
+}
